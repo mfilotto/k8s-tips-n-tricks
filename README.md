@@ -52,3 +52,4 @@ https://thenewstack.io/taking-kubernetes-api-spin/
 
 ## Resources
 https://github.com/mhausenblas/kubectl-in-action
+https://discuss.kubernetes.io/t/kubectl-tips-and-tricks/
