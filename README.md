@@ -46,10 +46,14 @@ https://github.com/ashleyschuett/kubernetes-secret-decode
 
 `kubectl get secret my-secret -o yaml | ksd`
 
+### Read logs from all replicas at a time with stern
+https://github.com/wercker/stern
+
 ### Interact with kube-api like any other API
 https://thenewstack.io/taking-kubernetes-api-spin/
 
 
 ## Resources
-https://github.com/mhausenblas/kubectl-in-action
-https://discuss.kubernetes.io/t/kubectl-tips-and-tricks/
+- https://kubernetes.io/docs/reference/kubectl/cheatsheet/
+- https://github.com/mhausenblas/kubectl-in-action
+- https://discuss.kubernetes.io/t/kubectl-tips-and-tricks/
