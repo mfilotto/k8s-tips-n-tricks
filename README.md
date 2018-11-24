@@ -1,7 +1,12 @@
 # Kubernetes tips and tricks
 
-### Browse google registry
-https://console.cloud.google.com/gcr/images/google-containers/GLOBAL
+## kubectl commands
+
+### View resource usage
+```
+kubectl top no
+kubectl top po
+```
 
 ### Display http requests made by kubectl to kube-api 
 `kubectl get po -v=6`
@@ -26,3 +31,24 @@ https://console.cloud.google.com/gcr/images/google-containers/GLOBAL
 
 ### Check if I'm allowed to do an action
 `kubectl auth can-i exec pod`
+
+## Other stuffs to know about
+
+### Browse google registry
+https://console.cloud.google.com/gcr/images/google-containers/GLOBAL
+
+### Ease kubectl use
+![Test
+](https://github.com/mhausenblas/kubectl-in-action/blob/master/img/aab-twitter.jpg)
+
+### Decode all secret content easily with ksd
+https://github.com/ashleyschuett/kubernetes-secret-decode
+
+`kubectl get secret my-secret -o yaml | ksd`
+
+### Interact with kube-api like any other API
+https://thenewstack.io/taking-kubernetes-api-spin/
+
+
+## Resources
+https://github.com/mhausenblas/kubectl-in-action
