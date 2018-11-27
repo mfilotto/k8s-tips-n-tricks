@@ -2,7 +2,7 @@
 
 ## kubectl commands
 
-## Official kubectl Cheat Sheet
+### Official kubectl Cheat Sheet
 https://kubernetes.io/docs/reference/kubectl/cheatsheet/
 
 ### View resource usage
@@ -28,6 +28,12 @@ kubectl top po
 
 ### Watch pods
 `watch kubectl get po -lrelease=<my-helm-release>`
+
+### Find pods by date with jq
+```
+DEPLOYMENT_STARTDATE=`jq -n 'now'`
+kubectl get po -lrelease=<my-helm-release> -ojson | jq -r --arg deployment_startdate $DEPLOYMENT_STARTDATE '.items[] | select(.metadata.creationTimestamp | fromdate | tostring > $deployment_startdate) | .metadata.name'
+```
 
 ### Inject an environment variable in a deployment
 `kubectl set env deployment/registry STORAGE_DIR=/local`
