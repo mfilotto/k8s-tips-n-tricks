@@ -79,6 +79,9 @@ https://applatix.com/case-docker-docker-kubernetes-part-2/
 ### How To Back Up and Restore a Kubernetes Cluster using Heptio Ark
 https://www.digitalocean.com/community/tutorials/how-to-back-up-and-restore-a-kubernetes-cluster-on-digitalocean-using-heptio-ark
 
+### Configuring the Kubernetes CLI by using service account tokens
+https://www.ibm.com/developerworks/community/blogs/fe25b4ef-ea6a-4d86-a629-6f87ccf4649e/entry/Configuring_the_Kubernetes_CLI_by_using_service_account_tokens1?lang=en
+
 ## Resources
 - https://hackernoon.com/top-10-kubernetes-tips-and-tricks-27528c2d0222
 - https://github.com/mhausenblas/kubectl-in-action
