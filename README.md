@@ -24,7 +24,7 @@ kubectl top po
 `kubectl get secrets <my-secret> -ojson -n<my-src-namespace> | jq '.metadata.namespace = "<my-dest-namespace>"' | kubectl create -f -`
 
 ### Clean up an helm release manually
-`kubectl get configmaps,secret,pvc,svc,deploy,sts -oname -l release=<my-helm-release> | while read name; do kubectl delete $name; done`
+`kubectl get deploy,sts,configmaps,secret,pvc,svc -oname -l release=<my-helm-release> | while read name; do kubectl delete $name; done`
 
 ### Watch pods
 `watch kubectl get po -lrelease=<my-helm-release>`
