@@ -10,6 +10,8 @@ https://kubernetes.io/docs/reference/kubectl/cheatsheet/
 kubectl top no
 kubectl top po
 ```
+### Display logs for previous started container to debug abnormal successive restarts
+`kubectl logs <my-pod> --previous`
 
 ### Display http requests made by kubectl to kube-api 
 `kubectl get po -v=6`
