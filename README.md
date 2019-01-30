@@ -43,6 +43,9 @@ kubectl get po -lrelease=<my-helm-release> -ojson | jq -r --arg deployment_start
 ### Check if I'm allowed to do an action
 `kubectl auth can-i exec pod`
 
+### Suspend all cronjobs at once
+`kubectl get cronjobs.batch -oname | while read name; do kubectl patch $name -p '{"spec":{"suspend":true}}'; done`
+
 ## Some recipes
 
 ### Browse google registry
