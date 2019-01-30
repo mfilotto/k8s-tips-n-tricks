@@ -46,6 +46,9 @@ kubectl get po -lrelease=<my-helm-release> -ojson | jq -r --arg deployment_start
 ### Suspend all cronjobs at once
 `kubectl get cronjobs.batch -oname | while read name; do kubectl patch $name -p '{"spec":{"suspend":true}}'; done`
 
+### List evicted pods on all cluster
+`kubectl get pods --field-selector=status.phase=Failed --all-namespaces -owide`
+
 ## Some recipes
 
 ### Browse google registry
