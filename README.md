@@ -47,7 +47,8 @@ kubectl get po -lrelease=<my-helm-release> -ojson | jq -r --arg deployment_start
 `kubectl get cronjobs.batch -oname | while read name; do kubectl patch $name -p '{"spec":{"suspend":true}}'; done`
 
 ### List evicted pods on all cluster
-`kubectl get pods --all-namespaces -ojson | jq '.items[] | select(.status.reason=="Evicted") | .metadata.namespace + " :  " + .spec.nodeName + " : " + .metadata.name'`
+- `kubectl get pods --field-selector=status.phase=Failed --all-namespaces -owide`
+- `kubectl get pods --all-namespaces -ojson | jq '.items[] | select(.status.reason=="Evicted") | .metadata.namespace + " :  " + .spec.nodeName + " : " + .metadata.name'`
 
 ### List pods with anti affinity 
 `kubectl get pods -ojson | jq '.items[] | select(.spec.affinity.podAntiAffinity!=null) |  .metadata.name'`
