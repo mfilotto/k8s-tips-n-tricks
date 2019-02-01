@@ -49,6 +49,12 @@ kubectl get po -lrelease=<my-helm-release> -ojson | jq -r --arg deployment_start
 ### List evicted pods on all cluster
 `kubectl get pods --field-selector=status.phase=Failed --all-namespaces -owide`
 
+### List pods with anti affinity 
+`kubectl get pods -ojson | jq '.items[] | select(.spec.affinity.podAntiAffinity!=null) |  .metadata.name'`
+
+### List pods with a guaranteed qos
+`kubectl get pods -ojson  | jq '.items[] | select(.status.qosClass=="Guaranteed") |  .metadata.name'`
+
 ## Some recipes
 
 ### Browse google registry
