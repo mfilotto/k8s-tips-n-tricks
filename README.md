@@ -56,6 +56,9 @@ kubectl get po -lrelease=<my-helm-release> -ojson | jq -r --arg deployment_start
 ### List pods with a guaranteed qos
 `kubectl get pods -ojson  | jq '.items[] | select(.status.qosClass=="Guaranteed") |  .metadata.name'`
 
+### List prority classes sort by value
+`kubectl get priorityclasses -ojson | jq -r '.items[] | .metadata.name + " : " + (.value|tostring)' | sort -k3`
+
 ## Some recipes
 
 ### Browse google registry
