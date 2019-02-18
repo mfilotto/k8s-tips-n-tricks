@@ -57,7 +57,7 @@ kubectl get po -lrelease=<my-helm-release> -ojson | jq -r --arg deployment_start
 `kubectl get pods -ojson  | jq '.items[] | select(.status.qosClass=="Guaranteed") |  .metadata.name'`
 
 ### List prority classes sort by value
-`kubectl get priorityclasses -ojson | jq -r '.items[] | .metadata.name + " : " + (.value|tostring)' | sort -k3`
+`kubectl get priorityclasses -ojson | jq -r '.items[] | .metadata.name + " : " + (.value|tostring)' | sort -k3nr`
 
 ### List priority infos for all pods
 `kubectl get pods -ojson | jq -r '.items[] | .metadata.namespace + " : " + .spec.nodeName + " : " + .metadata.name + " : " + .spec.priorityClassName+ " : " + (.spec.priority|tostring)'`
