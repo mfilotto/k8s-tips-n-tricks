@@ -60,7 +60,7 @@ kubectl get po -lrelease=<my-helm-release> -ojson | jq -r --arg deployment_start
 `kubectl get priorityclasses -ojson | jq -r '.items[] | .metadata.name + " : " + (.value|tostring)' | sort -k3nr`
 
 ### List priority infos for all pods sort by value
-`kubectl get pods -ojson | jq -r '.items[] | .metadata.namespace + " : " + .spec.nodeName + " : " + .metadata.name + " : " + .spec.priorityClassName+ " : " + (.spec.priority|tostring)' | sort -k9nr`
+`kubectl get pods -ojson | jq -r '.items[] | .metadata.namespace + " : " + .spec.nodeName + " : " + .metadata.name + " : " + .spec.priorityClassName+ " : " + (.spec.priority|tostring)' | sort -k9nr -k5`
 
 ## Some recipes
 
