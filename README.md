@@ -62,8 +62,11 @@ kubectl get po -lrelease=<my-helm-release> -ojson | jq -r --arg deployment_start
 ### List priority infos for all pods sort by value
 `kubectl get pods -ojson | jq -r '.items[] | .metadata.namespace + " : " + .spec.nodeName + " : " + .metadata.name + " : " + .spec.priorityClassName+ " : " + (.spec.priority|tostring)' | sort -k9nr -k5`
 
-### List pre hooks for a release
+### List pre hook jobs for a release
 `kubectl get jobs -ojson | jq -r '.items[] | select(.metadata.annotations["helm.sh/hook"] and (.metadata.annotations["helm.sh/hook"]|contains("pre")) and .metadata.labels.release=="<my-helm-release>") | .metadata.name'`
+
+### List pod owned by a hook job
+`kubectl get po -ojson | jq -r '.items[] | select(.metadata.ownerReferences[].name == "<my-hook-name>") | .metadata.name'`
 
 ## Some recipes
 
