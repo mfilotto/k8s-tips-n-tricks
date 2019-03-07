@@ -48,7 +48,7 @@ kubectl get po -lrelease=<my-helm-release> -ojson | jq -r --arg deployment_start
 
 ### List evicted pods on all cluster
 - `kubectl get pods --field-selector=status.phase=Failed --all-namespaces -owide`
-- `kubectl get pods --all-namespaces -ojson | jq '.items[] | select(.status.reason=="Evicted") | .metadata.namespace + " :  " + .spec.nodeName + " : " + .metadata.name'`
+- `kubectl get pods --all-namespaces -ojson | jq -r '.items[] | select(.status.reason=="Evicted") | .metadata.namespace + " " + .spec.nodeName + " " + (.spec.priority|tostring)+ " " + .metadata.name  + " : " + .status.message' | sort -k2,2 -k3nr`
 
 ### List pods with anti affinity 
 `kubectl get pods -ojson | jq '.items[] | select(.spec.affinity.podAntiAffinity!=null) |  .metadata.name'`
