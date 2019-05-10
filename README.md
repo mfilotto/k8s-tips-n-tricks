@@ -77,6 +77,9 @@ kubectl get po -lrelease=<my-helm-release> -ojson | jq -r --arg deployment_start
 ### Delete succeeded jobs
 `kubectl get jobs -ojson | jq -r '.items[] | select(.metadata.annotations["helm.sh/hook"] and .status.succeeded==1) | .metadata.name' | while read name; do kubectl delete jobs $name ; done`
 
+### List nodes with memory or disk pressure Taint Based Evictions
+`kubectl get no -ojson | jq -r '.items[] | select(.spec.taints!=null and (.spec.taints[0].key|contains("pressure"))) | .metadata.name + " : " + .spec.taints[0].key'`
+
 ## Some recipes
 
 ### Browse google registry
