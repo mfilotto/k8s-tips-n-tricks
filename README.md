@@ -124,6 +124,10 @@ https://www.ibm.com/developerworks/community/blogs/fe25b4ef-ea6a-4d86-a629-6f87c
 ### Treat your pods according to their needs - three QoS classes in Kubernetes
 https://cloudowski.com/articles/three-qos-classes-in-kubernetes/
 
+### Prometheus Operator
+https://github.com/helm/charts/tree/master/stable/prometheus-operator
+https://sysdig.com/blog/kubernetes-monitoring-prometheus-operator-part3/
+
 ## Resources
 - https://hackernoon.com/top-10-kubernetes-tips-and-tricks-27528c2d0222
 - https://github.com/mhausenblas/kubectl-in-action
