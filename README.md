@@ -126,6 +126,7 @@ https://cloudowski.com/articles/three-qos-classes-in-kubernetes/
 
 ### Prometheus Operator
 https://github.com/helm/charts/tree/master/stable/prometheus-operator
+https://github.com/coreos/prometheus-operator/tree/master/Documentation
 https://sysdig.com/blog/kubernetes-monitoring-prometheus-operator-part3/
 
 ## Resources
