@@ -46,6 +46,9 @@ kubectl get po -lrelease=<my-helm-release> -ojson | jq -r --arg deployment_start
 ### Suspend all cronjobs at once
 `kubectl get cronjobs.batch -oname | while read name; do kubectl patch $name -p '{"spec":{"suspend":true}}'; done`
 
+### List image in deployments
+`kubectl get deploy -lrelease=si-labo -ojson | jq .items[].spec.template.spec.containers[0].image`
+
 ### List evicted pods on all cluster
 - `kubectl get pods --field-selector=status.phase=Failed --all-namespaces -owide`
 - `kubectl get pods --all-namespaces -ojson | jq -r '.items[] | select(.status.reason=="Evicted") | .metadata.namespace + " " + .spec.nodeName + " " + (.spec.priority|tostring)+ " " + .metadata.name  + " : " + .status.message' | sort -k2,2 -k3nr`
