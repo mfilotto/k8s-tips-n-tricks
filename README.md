@@ -10,6 +10,9 @@ https://kubernetes.io/docs/reference/kubectl/cheatsheet/
 kubectl top no
 kubectl top po
 ```
+### Display docker image tage and SHA
+`kubectl get pod <my-pod-name> -o json | jq '.status.containerStatuses[] | { "image": .image, "imageID": .imageID }'`
+
 ### Display logs for previous started container to debug abnormal successive restarts
 `kubectl logs <my-pod> --previous`
 
