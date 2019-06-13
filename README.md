@@ -95,8 +95,7 @@ kubectl get po -lrelease=<my-helm-release> -ojson | jq -r --arg deployment_start
 https://console.cloud.google.com/gcr/images/google-containers/GLOBAL
 
 ### Ease kubectl use
-![Test
-](https://github.com/mfilotto/k8s-tips-n-tricks/raw/master/images/kubectl-tools.jpg)
+![Test](/images/kubectl-tools.jpg?raw=true)
 
 ### Decode all secret content easily with ksd
 https://github.com/ashleyschuett/kubernetes-secret-decode
