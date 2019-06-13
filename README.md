@@ -96,7 +96,7 @@ https://console.cloud.google.com/gcr/images/google-containers/GLOBAL
 
 ### Ease kubectl use
 ![Test
-](https://github.com/mhausenblas/kubectl-in-action/blob/master/img/aab-twitter.jpg)
+](https://github.com/mfilotto/k8s-tips-n-tricks/raw/master/images/kubectl-tools.jpg)
 
 ### Decode all secret content easily with ksd
 https://github.com/ashleyschuett/kubernetes-secret-decode
