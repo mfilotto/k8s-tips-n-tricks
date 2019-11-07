@@ -43,6 +43,9 @@ kubectl get po -lrelease=<my-helm-release> -ojson | jq -r --arg deployment_start
 ### Inject an environment variable in a deployment
 `kubectl set env deployment/registry STORAGE_DIR=/local`
 
+### Restart pods properly with a rollout (from 1.15)
+`kubectl rollout restart deploy <my-deploy>`
+
 ### Check if I'm allowed to do an action
 `kubectl auth can-i exec pod`
 
