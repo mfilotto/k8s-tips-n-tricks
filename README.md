@@ -91,6 +91,7 @@ kubectl get po -lrelease=<my-helm-release> -ojson | jq -r --arg deployment_start
 
 ### List allocated ressources per node
 `kubectl get nodes --no-headers | awk '{print $1}' | xargs -I {} sh -c 'echo {}; kubectl describe node {} | grep Allocated -A 5 | grep -ve Event -ve Allocated -ve percent -ve -- ; echo'`
+`for i in {01..12}; do echo dbk-k8s-worker-dev-${i}v; kubectl describe node dbk-k8s-worker-dev-${i}v|grep -A6 'Allocated resources:'; done`
 
 ## Some recipes
 
