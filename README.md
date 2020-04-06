@@ -31,6 +31,9 @@ kubectl top po
 ### Clean up an helm release manually
 `kubectl get deploy,sts,configmaps,secret,pvc,svc -oname -l release=<my-helm-release> | while read name; do kubectl delete $name; done`
 
+### Wait for pod to be ready
+`kubectl wait po <my-po> --for=condition=Ready`
+
 ### Watch pods
 `watch kubectl get po -lrelease=<my-helm-release>`
 
