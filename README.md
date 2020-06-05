@@ -155,6 +155,9 @@ https://github.com/helm/charts/tree/master/stable/prometheus-operator
 https://github.com/coreos/prometheus-operator/tree/master/Documentation
 https://sysdig.com/blog/kubernetes-monitoring-prometheus-operator-part3/
 
+### Kube eagle: prometheus exporter and grafana dashboard for a nice overview of a cluster
+https://github.com/cloudworkz/kube-eagle
+
 ## Resources
 - https://hackernoon.com/top-10-kubernetes-tips-and-tricks-27528c2d0222
 - https://github.com/mhausenblas/kubectl-in-action
