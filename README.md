@@ -120,6 +120,11 @@ https://github.com/ashleyschuett/kubernetes-secret-decode
 
 `kubectl get secret my-secret -o yaml | ksd`
 
+### Add fuzzy search to your command with fzf
+https://github.com/junegunn/fzf
+
+`kubectl get po | fzf`
+
 ### Read logs from all replicas at a time with stern
 https://github.com/wercker/stern
 
