@@ -107,6 +107,9 @@ kubectl get pods -o json | jq -r '.items[] | select(.spec.containers[].env[]?.va
 `kubectl get nodes --no-headers | awk '{print $1}' | xargs -I {} sh -c 'echo {}; kubectl describe node {} | grep Allocated -A 5 | grep -ve Event -ve Allocated -ve percent -ve -- ; echo'`
 `for i in {01..12}; do echo dbk-k8s-worker-dev-${i}v; kubectl describe node dbk-k8s-worker-dev-${i}v|grep -A6 'Allocated resources:'; done`
 
+### Drain a node
+`kubectl drain <node> --ignore-daemonsets --force --delete-local-data`
+
 ## Some recipes
 
 ### Browse google registry
