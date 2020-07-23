@@ -166,6 +166,9 @@ https://sysdig.com/blog/kubernetes-monitoring-prometheus-operator-part3/
 ### Kube eagle: prometheus exporter and grafana dashboard for a nice overview of a cluster
 https://github.com/cloudworkz/kube-eagle
 
+### Checklist of production ready best practices for a kubernetes cluster
+https://learnk8s.io/production-best-practices
+
 ## Resources
 - https://hackernoon.com/top-10-kubernetes-tips-and-tricks-27528c2d0222
 - https://github.com/mhausenblas/kubectl-in-action
