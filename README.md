@@ -88,8 +88,11 @@ kubectl get pods -o json | jq -r '.items[] | select(.spec.containers[].env[]?.va
 ### List OOMKilled pods
 `kubectl get po --all-namespaces -ojson | jq -r '.items[] | select(.status.containerStatuses[0].lastState.terminated.reason=="OOMKilled") | .metadata.namespace + " " + (.status.containerStatuses[0].restartCount|tostring) + " " + .metadata.name' | sort -k1,1r -k2nr`
 
-### Force delete of pods stuck in terminating status
-`kubectl delete pods <pod> --grace-period=0 --force`
+### Force delete a pod stuck in terminating status
+`kubectl delete pod <pod> --grace-period=0 --force`
+
+### Force delete all pods stuck in terminating status at once
+`kubectl get po -owide | grep 'Terminating' | awk -F ' ' '{print $1}' | while read name; do kubectl delete po $name --grace-period=0 --force; done`
 
 ### List pre hook jobs for a release
 `kubectl get jobs -ojson | jq -r '.items[] | select(.metadata.annotations["helm.sh/hook"] and (.metadata.annotations["helm.sh/hook"]|contains("pre")) and .metadata.labels.release=="<my-helm-release>") | .metadata.name'`
