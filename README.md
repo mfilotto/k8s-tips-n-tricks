@@ -48,6 +48,11 @@ kubectl get po -lrelease=<my-helm-release> -ojson | jq -r --arg deployment_start
 kubectl get pods -o json | jq -r '.items[] | select(.spec.containers[].env[]?.valueFrom.secretKeyRef.key=="<MY_VAR_ENV_NAME>") | .metadata.name'
 ```
 
+### Find deployments using a specific environment variable in secret
+```
+kubectl get deploy -o json | jq -r '.items[] | select(.spec.template..spec.containers[].env[]?.valueFrom.secretKeyRef.key=="<MY_VAR_ENV_NAME>") | .metadata.name'
+```
+
 ### Inject an environment variable in a deployment
 `kubectl set env deployment/registry STORAGE_DIR=/local`
 
