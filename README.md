@@ -50,7 +50,7 @@ kubectl get pods -o json | jq -r '.items[] | select(.spec.containers[].env[]?.va
 
 ### Find deployments using a specific environment variable in secret
 ```
-kubectl get deploy -o json | jq -r '.items[] | select(.spec.template..spec.containers[].env[]?.valueFrom.secretKeyRef.key=="<MY_VAR_ENV_NAME>") | .metadata.name'
+kubectl get deploy -o json | jq -r '.items[] | select(.spec.template.spec.containers[].env[]?.valueFrom.secretKeyRef.key=="<MY_VAR_ENV_NAME>") | .metadata.name'
 ```
 
 ### Inject an environment variable in a deployment
