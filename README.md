@@ -1,5 +1,8 @@
 # Kubernetes tips and tricks
 
+## Kubernetes new releases
+https://sysdig.com/blog/?s=Kubernetes++What%E2%80%99s+new
+
 ## kubectl commands
 
 ### Official kubectl Cheat Sheet
