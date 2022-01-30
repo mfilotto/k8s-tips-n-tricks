@@ -68,8 +68,11 @@ kubectl get deploy -o json | jq -r '.items[] | select(.spec.template.spec.contai
 ### Suspend all cronjobs at once
 `kubectl get cronjobs.batch -oname | while read name; do kubectl patch $name -p '{"spec":{"suspend":true}}'; done`
 
-### List image in deployments
+### List image in a deployment
 `kubectl get deploy -lrelease=si-labo -ojson | jq .items[].spec.template.spec.containers[0].image`
+
+### List all image references in a namespace
+`kubectl get deploy -ojson | jq -r '.. | .image? // empty' | sort -u`
 
 ### List pods in status other than Running or Completed
 `kubectl get po -owide --all-namespaces | grep -v 'Running\|Completed'`
