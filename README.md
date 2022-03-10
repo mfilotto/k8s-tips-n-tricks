@@ -130,7 +130,7 @@ kubectl get deploy -o json | jq -r '.items[] | select(.spec.template.spec.contai
 `ctr --namespace k8s.io i ls`
 
 ### Push an image to a private registry
-`ctr --namespace k8s.io i push -u user<>:<password> <image>`
+`ctr --namespace k8s.io i push -u <user>:<password> <image>`
 
 ## Some recipes
 
