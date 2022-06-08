@@ -140,6 +140,9 @@ https://console.cloud.google.com/gcr/images/google-containers/GLOBAL
 ### Ease kubectl use
 ![Test](/images/kubectl-tools.jpg?raw=true)
 
+### Add kubectl aliases
+https://github.com/ahmetb/kubectl-aliases
+
 ### Decode all secret content easily with ksd
 https://github.com/ashleyschuett/kubernetes-secret-decode
 
