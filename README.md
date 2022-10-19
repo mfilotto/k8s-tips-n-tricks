@@ -96,6 +96,9 @@ kubectl get deploy -o json | jq -r '.items[] | select(.spec.template.spec.contai
 ### List pods by restart count
 `kubectl get pods --sort-by='.status.containerStatuses[0].restartCount'`
 
+### List pods by age
+`kubectl get po --sort-by=.status.startTime`
+
 ### List OOMKilled pods
 `kubectl get po --all-namespaces -ojson | jq -r '.items[] | select(.status.containerStatuses[0].lastState.terminated.reason=="OOMKilled") | .metadata.namespace + " " + (.status.containerStatuses[0].restartCount|tostring) + " " + .metadata.name' | sort -k1,1r -k2nr`
 
