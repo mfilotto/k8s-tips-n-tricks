@@ -14,7 +14,7 @@ kubectl top no
 kubectl top po
 ```
 ### Display docker image tage and SHA
-`kubectl get pod <my-pod-name> -o json | jq '.status.containerStatuses[] | { "image": .image, "imageID": .imageID }'`
+`kubectl get pod <my-pod-name> -ojson | jq '.status.containerStatuses[] | { "image": .image, "imageID": .imageID }'`
 
 ### Display logs for previous started container to debug abnormal successive restarts
 `kubectl logs <my-pod> --previous`
@@ -32,7 +32,7 @@ kubectl top po
 `kubectl get secrets <my-secret> -ojson -n<my-src-namespace> | jq '.metadata.namespace = "<my-dest-namespace>"' | kubectl create -f -`
 
 ### Clean up an helm release manually
-`kubectl get deploy,sts,configmaps,secret,pvc,svc -oname -l release=<my-helm-release> | while read name; do kubectl delete $name; done`
+`kubectl get deploy,sts,cm,secret,pvc,svc -oname -lrelease=<my-helm-release> | while read name; do kubectl delete $name; done`
 
 ### Wait for pod to be ready
 `kubectl wait po <my-po> --for=condition=Ready`
@@ -48,12 +48,12 @@ kubectl get po -lrelease=<my-helm-release> -ojson | jq -r --arg deployment_start
 
 ### Find pods using a specific environment variable in secret
 ```
-kubectl get pods -o json | jq -r '.items[] | select(.spec.containers[].env[]?.valueFrom.secretKeyRef.key=="<MY_VAR_ENV_NAME>") | .metadata.name'
+kubectl get po -ojson | jq -r '.items[] | select(.spec.containers[].env[]?.valueFrom.secretKeyRef.key=="<MY_VAR_ENV_NAME>") | .metadata.name'
 ```
 
 ### Find deployments using a specific environment variable in secret
 ```
-kubectl get deploy -o json | jq -r '.items[] | select(.spec.template.spec.containers[].env[]?.valueFrom.secretKeyRef.key=="<MY_VAR_ENV_NAME>") | .metadata.name'
+kubectl get deploy -ojson | jq -r '.items[] | select(.spec.template.spec.containers[].env[]?.valueFrom.secretKeyRef.key=="<MY_VAR_ENV_NAME>") | .metadata.name'
 ```
 
 ### Inject an environment variable in a deployment
@@ -66,7 +66,7 @@ kubectl get deploy -o json | jq -r '.items[] | select(.spec.template.spec.contai
 `kubectl auth can-i exec pod`
 
 ### Suspend all cronjobs at once
-`kubectl get cronjobs.batch -oname | while read name; do kubectl patch $name -p '{"spec":{"suspend":true}}'; done`
+`kubectl get cj -oname | while read name; do kubectl patch $name -p '{"spec":{"suspend":true}}'; done`
 
 ### List image in a deployment
 `kubectl get deploy -lrelease=si-labo -ojson | jq .items[].spec.template.spec.containers[0].image`
@@ -78,23 +78,23 @@ kubectl get deploy -o json | jq -r '.items[] | select(.spec.template.spec.contai
 `kubectl get po -owide --all-namespaces | grep -v 'Running\|Completed'`
 
 ### List evicted pods on all cluster
-- `kubectl get pods --field-selector=status.phase=Failed --all-namespaces -owide`
-- `kubectl get pods --all-namespaces -ojson | jq -r '.items[] | select(.status.reason=="Evicted") | .metadata.namespace + " " + .spec.nodeName + " " + (.spec.priority|tostring)+ " " + .metadata.name  + " : " + .status.message' | sort -k2,2 -k3nr`
+- `kubectl get po --field-selector=status.phase=Failed --all-namespaces -owide`
+- `kubectl get po --all-namespaces -ojson | jq -r '.items[] | select(.status.reason=="Evicted") | .metadata.namespace + " " + .spec.nodeName + " " + (.spec.priority|tostring)+ " " + .metadata.name  + " : " + .status.message' | sort -k2,2 -k3nr`
 
 ### List pods with anti affinity 
-`kubectl get pods -ojson | jq '.items[] | select(.spec.affinity.podAntiAffinity!=null) |  .metadata.name'`
+`kubectl get po -ojson | jq '.items[] | select(.spec.affinity.podAntiAffinity!=null) |  .metadata.name'`
 
 ### List pods with a guaranteed qos
-`kubectl get pods -ojson  | jq '.items[] | select(.status.qosClass=="Guaranteed") |  .metadata.name'`
+`kubectl get po -ojson  | jq '.items[] | select(.status.qosClass=="Guaranteed") |  .metadata.name'`
 
 ### List prority classes sort by value
-`kubectl get priorityclasses -ojson | jq -r '.items[] | .metadata.name + " : " + (.value|tostring)' | sort -k3nr`
+`kubectl get pc -ojson | jq -r '.items[] | .metadata.name + " : " + (.value|tostring)' | sort -k3nr`
 
 ### List priority infos for all pods sort by value
-`kubectl get pods -ojson | jq -r '.items[] | .metadata.namespace + " : " + .spec.nodeName + " : " + .metadata.name + " : " + .spec.priorityClassName+ " : " + (.spec.priority|tostring)' | sort -k9nr -k5`
+`kubectl get po -ojson | jq -r '.items[] | .metadata.namespace + " : " + .spec.nodeName + " : " + .metadata.name + " : " + .spec.priorityClassName+ " : " + (.spec.priority|tostring)' | sort -k9nr -k5`
 
 ### List pods by restart count
-`kubectl get pods --sort-by='.status.containerStatuses[0].restartCount'`
+`kubectl get po --sort-by='.status.containerStatuses[0].restartCount'`
 
 ### List pods by age
 `kubectl get po --sort-by=.status.startTime`
@@ -121,7 +121,7 @@ kubectl get deploy -o json | jq -r '.items[] | select(.spec.template.spec.contai
 `kubectl get no -ojson | jq -r '.items[] | select(.spec.taints!=null and (.spec.taints[0].key|contains("pressure"))) | .metadata.name + " : " + .spec.taints[0].key'`
 
 ### List allocated ressources per node
-`kubectl get nodes --no-headers | awk '{print $1}' | xargs -I {} sh -c 'echo {}; kubectl describe node {} | grep Allocated -A 5 | grep -ve Event -ve Allocated -ve percent -ve -- ; echo'`
+`kubectl get no --no-headers | awk '{print $1}' | xargs -I {} sh -c 'echo {}; kubectl describe node {} | grep Allocated -A 5 | grep -ve Event -ve Allocated -ve percent -ve -- ; echo'`
 `for i in {01..12}; do echo dbk-k8s-worker-dev-${i}v; kubectl describe node dbk-k8s-worker-dev-${i}v|grep -A6 'Allocated resources:'; done`
 
 ### Drain a node
