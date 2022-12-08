@@ -75,11 +75,11 @@ kubectl get deploy -ojson | jq -r '.items[] | select(.spec.template.spec.contain
 `kubectl get deploy -ojson | jq -r '.. | .image? // empty' | sort -u`
 
 ### List pods in status other than Running or Completed
-`kubectl get po -owide --all-namespaces | grep -v 'Running\|Completed'`
+`kubectl get po -owide -A | grep -v 'Running\|Completed'`
 
 ### List evicted pods on all cluster
-- `kubectl get po --field-selector=status.phase=Failed --all-namespaces -owide`
-- `kubectl get po --all-namespaces -ojson | jq -r '.items[] | select(.status.reason=="Evicted") | .metadata.namespace + " " + .spec.nodeName + " " + (.spec.priority|tostring)+ " " + .metadata.name  + " : " + .status.message' | sort -k2,2 -k3nr`
+- `kubectl get po --field-selector=status.phase=Failed -A -owide`
+- `kubectl get po -A -ojson | jq -r '.items[] | select(.status.reason=="Evicted") | .metadata.namespace + " " + .spec.nodeName + " " + (.spec.priority|tostring)+ " " + .metadata.name  + " : " + .status.message' | sort -k2,2 -k3nr`
 
 ### List pods with anti affinity 
 `kubectl get po -ojson | jq '.items[] | select(.spec.affinity.podAntiAffinity!=null) |  .metadata.name'`
@@ -100,7 +100,7 @@ kubectl get deploy -ojson | jq -r '.items[] | select(.spec.template.spec.contain
 `kubectl get po --sort-by=.status.startTime`
 
 ### List OOMKilled pods
-`kubectl get po --all-namespaces -ojson | jq -r '.items[] | select(.status.containerStatuses[0].lastState.terminated.reason=="OOMKilled") | .metadata.namespace + " " + (.status.containerStatuses[0].restartCount|tostring) + " " + .metadata.name' | sort -k1,1r -k2nr`
+`kubectl get po -A -ojson | jq -r '.items[] | select(.status.containerStatuses[0].lastState.terminated.reason=="OOMKilled") | .metadata.namespace + " " + (.status.containerStatuses[0].restartCount|tostring) + " " + .metadata.name' | sort -k1,1r -k2nr`
 
 ### Force delete a pod stuck in terminating status
 `kubectl delete pod <pod> --grace-period=0 --force`
