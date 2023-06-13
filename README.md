@@ -146,7 +146,7 @@ kubectl get deploy -ojson | jq -r '.items[] | select(.spec.template.spec.contain
 ### Get all values of a release
 `helm get values <release> -a`
 
-### Get manifets of a release
+### Get manifest of a release
 `helm get manifest <release>`
 
 ## Some recipes
