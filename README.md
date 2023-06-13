@@ -135,6 +135,20 @@ kubectl get deploy -ojson | jq -r '.items[] | select(.spec.template.spec.contain
 ### Push an image to a private registry
 `ctr --namespace k8s.io i push -u <user>:<password> <image>`
 
+## helm commands
+
+### Render chart templates locally
+`helm template . --output-dir=output-dir`
+
+### List resources of a release
+`helm status <release> --show-resources`
+
+### Get all values of a release
+`helm get values <release> -a`
+
+### Get manifets of a release
+`helm get manifest <release>`
+
 ## Some recipes
 
 ### Browse google registry
