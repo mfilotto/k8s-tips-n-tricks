@@ -163,10 +163,10 @@ kubectl get deploy -ojson | jq -r '.items[] | select(.spec.template.spec.contain
 ### Display diff between local and server kustomization
 `flux diff ks <kustomization> --path=<local path to kustomization> -n<namespace>`
 
-### Search for drifts in reonciliation (helm revision should increase periodically in case of an unwanted drift)
+### Search for drifts in reconciliation (helm revisions should increase periodically in case of an unwanted drift)
 `flux get hr -ndev --no-header | awk '{print $1}' | while read name; do helm history $name --max 1; done`
 
-### Search for replicas specified in helm manifests (no defined replicas allow to scale) 
+### Search for replicas specified in helm manifests (no defined replicas allow to scale without any detected drift) 
 `flux get hr -ndev --no-header | awk '{print $1}' | while read name; do bash -c "echo $name && helm get manifest $name | grep replica"; done`
 
 ## Some recipes
