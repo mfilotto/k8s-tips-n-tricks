@@ -149,6 +149,26 @@ kubectl get deploy -ojson | jq -r '.items[] | select(.spec.template.spec.contain
 ### Get manifests of a release
 `helm get manifest <release>`
 
+## flux commands
+
+### Display objects managed by a kustomization
+`flux tree ks <kustomization> -n<namespace>`
+
+### Force kustomization reconciliation
+`flux reconcile ks <kustomization> -n<namespace> --with-source`
+
+### Force helm release reconciliation
+`flux reconcile hr <release> -n<namespace> --with-source`
+
+### Display diff between local and server kustomization
+`flux diff ks <kustomization> --path=<local path to kustomization> -n<namespace>`
+
+### Search for drifts in reonciliation (helm revision should increase periodically in case of an unwanted drift)
+`flux get hr -ndev --no-header | awk '{print $1}' | while read name; do helm history $name --max 1; done`
+
+### Search for replicas specified in helm manifests (no defined replicas allow to scale) 
+`flux get hr -ndev --no-header | awk '{print $1}' | while read name; do bash -c "echo $name && helm get manifest $name | grep replica"; done`
+
 ## Some recipes
 
 ### Browse google registry
