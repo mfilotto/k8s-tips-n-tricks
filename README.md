@@ -135,6 +135,9 @@ kubectl get deploy -ojson | jq -r '.items[] | select(.spec.template.spec.contain
 ### Push an image to a private registry
 `ctr --namespace k8s.io i push -u <user>:<password> <image>`
 
+### Official helm Cheat Sheet
+https://helm.sh/docs/intro/cheatsheet/
+
 ## helm commands
 
 ### Render chart templates locally
@@ -148,6 +151,9 @@ kubectl get deploy -ojson | jq -r '.items[] | select(.spec.template.spec.contain
 
 ### Get manifests of a release
 `helm get manifest <release>`
+
+### Official flux Commands list
+https://fluxcd.io/flux/cmd/
 
 ## flux commands
 
