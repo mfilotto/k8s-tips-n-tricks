@@ -157,6 +157,9 @@ https://fluxcd.io/flux/cmd/
 
 ## flux commands
 
+### Display all flux objects to check cluster health
+`flux get all -A`
+
 ### Display objects managed by a kustomization
 `flux tree ks <kustomization> -n<namespace>`
 
