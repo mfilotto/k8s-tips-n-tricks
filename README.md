@@ -99,13 +99,23 @@ kubectl get deploy -ojson | jq -r '.items[] | select(.spec.template.spec.contain
 ### List pods by age
 `kubectl get po --sort-by=.status.startTime`
 
-### List OOMKilled pods
+### List all OOMKilled pods
 `kubectl get po -A -ojson | jq -r '.items[] | select(.status.containerStatuses[0].lastState.terminated.reason=="OOMKilled") | .metadata.namespace + " " + (.status.containerStatuses[0].restartCount|tostring) + " " + .metadata.name' | sort -k1,1r -k2nr`
 
-### List pods with privileged mode
-`kubectl get po -ojson | jq '.items[] | select(.spec.containers[].securityContext.privileged==true) |  .metadata.name'`
+### List all pods with privileged mode
+`kubectl get po -ojson -A | jq '.items[] | select(.spec.containers[].securityContext.privileged==true) |  .metadata.namespace + " : " + .metadata.name'`
+
+### List all pods using host's IPC namespace
+`kubectl get po -ojson -A | jq '.items[] | select(.spec.hostIPC==true) |  .metadata.namespace + " : " + .metadata.name'`
+
+### List all pods using host's network namespace
+`kubectl get po -ojson -A | jq '.items[] | select(.spec.hostNetwork==true) |  .metadata.namespace + " : " + .metadata.name'`
+
+### List all pods using host's PID namespace
+`kubectl get po -ojson -A | jq '.items[] | select(.spec.hostPID==true) |  .metadata.namespace + " : " + .metadata.name'`
 
 ### Force delete a pod stuck in terminating status
+
 `kubectl delete pod <pod> --grace-period=0 --force`
 
 ### Force delete all pods stuck in terminating status at once
