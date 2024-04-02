@@ -66,7 +66,13 @@ kubectl get deploy -ojson | jq -r '.items[] | select(.spec.template.spec.contain
 `kubectl auth can-i exec pod`
 
 ### Suspend all cronjobs at once
-`kubectl get cj -oname | while read name; do kubectl patch $name -p '{"spec":{"suspend":true}}'; done`
+`kubectl get cj -oname | while read name; do kubectl  $name -p '{"spec":{"suspend":true}}'; done`
+
+### Patch all Terminating PVC to remove the finalizer
+```
+NS=mynamespace
+kubectl -n $NS patch pvc $(kubectl -n $NS get pvc --no-headers | grep Terminating | awk '{print $1}') -p '{"metadata":{"finalizers":null}}'
+```
 
 ### List image in a deployment
 `kubectl get deploy -lrelease=si-labo -ojson | jq .items[].spec.template.spec.containers[0].image`
