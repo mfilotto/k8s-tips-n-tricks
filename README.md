@@ -120,8 +120,15 @@ kubectl -n $NS patch pvc $(kubectl -n $NS get pvc --no-headers | grep Terminatin
 ### List all pods using host's PID namespace
 `kubectl get po -ojson -A | jq '.items[] | select(.spec.hostPID==true) |  .metadata.namespace + " : " + .metadata.name'`
 
-### Force delete a pod stuck in terminating status
+### Test anonymous access to health endpoints
+```
+UBE_API_URL=<Kube API URL>
+for ep in version healthz livez readyz; do curl -k $KUBE_API_URL/$ep?verbose; done
+```
+### List anonymous access
+`kubectl get clusterrolebindings -o json | jq '.items[] | select(.subjects? // [] | any(.kind == "User" and .name == "system:anonymous" or .kind == "Group" and .name == "system:unauthenticated"))'`
 
+### Force delete a pod stuck in terminating status
 `kubectl delete pod <pod> --grace-period=0 --force`
 
 ### Force delete all pods stuck in terminating status at once
