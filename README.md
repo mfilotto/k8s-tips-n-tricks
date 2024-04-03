@@ -122,7 +122,7 @@ kubectl -n $NS patch pvc $(kubectl -n $NS get pvc --no-headers | grep Terminatin
 
 ### Test anonymous access to health endpoints
 ```
-UBE_API_URL=<Kube API URL>
+KUBE_API_URL=<KUBE API URL>
 for ep in version healthz livez readyz; do curl -k $KUBE_API_URL/$ep?verbose; done
 ```
 ### List anonymous access
