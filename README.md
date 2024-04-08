@@ -68,6 +68,9 @@ kubectl get deploy -ojson | jq -r '.items[] | select(.spec.template.spec.contain
 ### Suspend all cronjobs at once
 `kubectl get cj -oname | while read name; do kubectl  $name -p '{"spec":{"suspend":true}}'; done`
 
+### Restart pod launched by job
+`kubectl get job <my-job> -o json | jq 'del(.spec.selector)' | jq 'del(.spec.template.metadata.labels)' | kubectl replace --force -f -`
+
 ### Patch all Terminating PVC to remove the finalizer
 ```
 NS=mynamespace
