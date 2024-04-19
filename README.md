@@ -189,6 +189,9 @@ https://fluxcd.io/flux/cmd/
 ### Display all flux objects to check cluster health
 `flux get all -A`
 
+### Display all not ready flux objects 
+`flux get all -n <namespace> --status-selector="ready=false"`
+
 ### Display objects managed by a kustomization
 `flux tree ks <kustomization> -n<namespace>`
 
